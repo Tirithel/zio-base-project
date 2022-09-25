@@ -1,6 +1,6 @@
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "3.1.2"
+ThisBuild / scalaVersion := Common.scalaVersion
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -11,6 +11,18 @@ addCommandAlias("fmtCheck", "all root/scalafmtSbtCheck root/scalafmtCheckAll")
 addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll")
 
 lazy val root = (project in file("."))
+  .enablePlugins(DockerPlugin)
   .settings(
-    name := "FunctionalProject"
+    name := "FunctionalProject",
+    resolvers := Common.resolvers,
+    libraryDependencies ++= Seq(
+      // scalatest
+      "org.scalactic" %% "scalactic" % Common.scalaTestVersion,
+      "org.scalatest" %% "scalatest" % Common.scalaTestVersion % Test,
+      // scalamock
+      "org.scalamock" %% "scalamock" % Common.scalaMockVersion % Test,
+      //zio
+      "dev.zio" %% "zio"         % Common.zioVersion,
+      "dev.zio" %% "zio-streams" % Common.zioVersion,
+    ),
   )
