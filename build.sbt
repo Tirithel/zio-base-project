@@ -27,5 +27,5 @@ lazy val root = (project in file("."))
     //zio
     "dev.zio" %% "zio"         % Common.zioVersion,
     "dev.zio" %% "zio-streams" % Common.zioVersion,
-  ),
-)
+    ),
+  )

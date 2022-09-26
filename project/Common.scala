@@ -7,4 +7,6 @@ object Common {
   val scalaTestVersion = "3.2.12"
   val scalaMockVersion = "5.2.0"
   val zioVersion       = "2.0.2"
+
+  val dockerBaseImage = "amazoncorretto:11"
 }
