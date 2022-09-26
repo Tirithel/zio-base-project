@@ -1,4 +1,7 @@
 package org.cmoran
 
-@main
-def main(): Unit = println("Hello world!")
+import zio._
+
+object Main {
+  def main(args: Array[String]): Unit = print("Hello world!")
+}
