@@ -2,11 +2,6 @@ import sbt._
 
 import scala.sys.process._
 
-// imports standard command parsing functionality
-import complete.DefaultParsers._
-import sbtdocker.DockerKeys._
-import Keys._
-
 object PublishKind {
 
   def publishKindLocal = Command.args("publishKindLocal", "") { (state, args) =>

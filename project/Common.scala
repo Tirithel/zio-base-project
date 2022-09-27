@@ -1,5 +1,3 @@
-import java.time.Instant
-
 import sbt._
 
 import sbtassembly.AssemblyKeys.assembly
