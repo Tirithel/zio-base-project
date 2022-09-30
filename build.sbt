@@ -29,8 +29,11 @@ lazy val root = (project in file("."))
       // scalamock
       "org.scalamock" %% "scalamock" % Common.scalaMockVersion % Test,
       //zio
-      "dev.zio" %% "zio"         % Common.zioVersion,
-      "dev.zio" %% "zio-streams" % Common.zioVersion,
+      "dev.zio" %% "zio"          % Common.zioVersion,
+      "dev.zio" %% "zio-streams"  % Common.zioVersion,
+      ("dev.zio" %% "zio-interop-cats" % Common.zioCatsVersion).excludeAll(ExclusionRule("org.typelevel")),
+      "dev.zio" %% "zio-test"     % Common.zioVersion % Test,
+      "dev.zio" %% "zio-test-sbt" % Common.zioVersion % Test,
       //time
       "com.github.nscala-time" %% "nscala-time" % Common.nscalaTimeVersion,
     ),
