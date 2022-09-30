@@ -1,5 +1,4 @@
 import sbt._
-import Settings._
 
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
@@ -18,9 +17,9 @@ addCommandAlias("publishKind", s"fmt; clean; test; docker; kind; ")
 lazy val `functional-project` = (project in file("."))
   .enablePlugins(DockerPlugin, ScalafmtPlugin, KindPlugin)
   .settings(Settings.commonSettings)
-  .settings(Settings.commonUberDockerSettings)
+  .settings(Settings.commonUberDockerSettings) // TODO: Add a tag to local image
   .settings(Settings.commonKindSettings)
   .settings(organization := "org.cmoran")
   .settings(moduleName := "functional-project")
   .settings(name := "functional-project")
-  .settings(libraryDependencies ++= Settings.serviceLayerDependencies)
+  .settings(libraryDependencies ++= Settings.serviceLayerDependencies ++ Seq(Dependencies.nscalatime))

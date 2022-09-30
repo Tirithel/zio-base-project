@@ -8,6 +8,7 @@ import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile
 import sbtassembly.AssemblyKeys.assemblyJarName
 import sbtassembly.AssemblyPlugin.autoImport.assembly
 import sbtdocker.DockerKeys._
+import sbtdocker.DockerPlugin.autoImport.ImageName
 import sbtdocker.Dockerfile
 import sbtkind.KindKeys._
 import Dependencies._
@@ -27,6 +28,14 @@ object Settings {
   )
 
   val commonUberDockerSettings = Seq(
+    docker / imageName := {
+      val organisation = Option(Keys.organization.value).filter(_.nonEmpty)
+      val name         = Keys.normalizedName.value
+      new ImageName(namespace = organisation, repository = name, tag = Some(Common.localDockerImageTag))
+    },
+    docker / imageNames := {
+      Seq((docker / imageName).value)
+    },
     docker / dockerfile := {
       // The assembly task generates a fat JAR file
       val artifact: File     = assembly.value
@@ -37,7 +46,7 @@ object Settings {
         add(artifact, artifactTargetPath)
         entryPoint("java", "-jar", artifactTargetPath)
       }
-    }
+    },
   )
 
   val commonKindSettings = Seq(
