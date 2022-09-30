@@ -1,6 +1,9 @@
+import sbt._
+import Settings._
+
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := Common.scalaVersion
+ThisBuild / scalaVersion := Dependencies.Version.scala
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -9,33 +12,12 @@ addCommandAlias("fmtCheck", "all root/scalafmtSbtCheck root/scalafmtCheckAll")
 addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll")
 addCommandAlias("publishKind", s"fmt; clean; test; docker; kind; ")
 
-scalafmtOnCompile := true
-
 lazy val root = (project in file("."))
   .enablePlugins(DockerPlugin, ScalafmtPlugin, KindPlugin)
-  .settings(
-    name := "FunctionalProject",
-    assembly / assemblyJarName := project.id + "-uber.jar",
-    kind / clusterName := {
-      import scala.sys.process._
-      ("whoami" !!).strip + ""
-    },
-    kind / dockerImageNames := (docker / imageNames).value.map(_.toString()),
-    resolvers := Common.resolvers,
-    libraryDependencies ++= Seq(
-      // scalatest
-      "org.scalactic" %% "scalactic" % Common.scalaTestVersion,
-      "org.scalatest" %% "scalatest" % Common.scalaTestVersion % Test,
-      // scalamock
-      "org.scalamock" %% "scalamock" % Common.scalaMockVersion % Test,
-      //zio
-      "dev.zio" %% "zio"          % Common.zioVersion,
-      "dev.zio" %% "zio-streams"  % Common.zioVersion,
-      ("dev.zio" %% "zio-interop-cats" % Common.zioCatsVersion).excludeAll(ExclusionRule("org.typelevel")),
-      "dev.zio" %% "zio-test"     % Common.zioVersion % Test,
-      "dev.zio" %% "zio-test-sbt" % Common.zioVersion % Test,
-      //time
-      "com.github.nscala-time" %% "nscala-time" % Common.nscalaTimeVersion,
-    ),
-  )
-  .settings(Common.dockerSettings)
+  .settings(Settings.commonSettings)
+  .settings(Settings.commonUberDockerSettings)
+  .settings(Settings.commonKindSettings)
+  .settings(organization := "org.cmoran")
+  .settings(moduleName := "functional-project")
+  .settings(name := "functional-project")
+  .settings(libraryDependencies ++= Settings.serviceLayerDependencies)

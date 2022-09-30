@@ -1,5 +1,7 @@
 package org.cmoran
 
+import scala.language.postfixOps
+
 import zio._
 
 object Main extends ZIOAppDefault {
@@ -19,11 +21,11 @@ object Main extends ZIOAppDefault {
   override def run: RIO[Scope, Unit] = {
     val program = for {
       someService <- ZIO.service[SomeService]
-      _           <- someService.doSomething.repeat(Schedule.spaced(1.second))
+      _           <- someService.doSomething.repeat(Schedule.spaced(5 seconds))
     } yield ()
 
     program
-      .provideSome[Scope](
+      .provideSome(
         Config.live,
         SomeService.live,
       )
