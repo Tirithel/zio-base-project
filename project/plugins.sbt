@@ -4,3 +4,4 @@ addSbtPlugin("se.marcuslonnberg"   % "sbt-docker"       % "1.9.0")
 addSbtPlugin("com.eed3si9n"        % "sbt-assembly"     % "1.2.0")
 // Not available on Scala 3
 addSbtPlugin("com.artima.supersafe" % "sbtplugin" % "1.1.12")
+addSbtPlugin("sbt-kind"             % "sbt-kind"  % "0.1.0-SNAPSHOT")
