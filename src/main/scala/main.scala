@@ -25,7 +25,7 @@ object Main extends ZIOAppDefault {
     } yield ()
 
     program
-      .provideSome(
+      .provide(
         Config.live,
         SomeService.live,
       )
