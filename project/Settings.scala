@@ -1,6 +1,7 @@
 import sbt._
 import sbt.Keys._
 
+import scala.language.postfixOps
 import scala.sys.process._
 
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile
@@ -54,7 +55,5 @@ object Settings {
     kind / dockerImageNames := (docker / imageNames).value.map(_.toString()),
   )
 
-  val dataLayerDependencies    = List(zio, zioCats)
-  val serviceLayerDependencies = List(zioCats, zioTest, zioTestSbt) // TODO: add slf4j and dedupe the assembly
-  val backendDependencies      = List()
+  val basicDependencies = List(zio, zioAkka, zioTest, zioTestSbt)
 }

@@ -12,6 +12,7 @@ object Dependencies {
   val zio        = "dev.zio"  %% "zio"              % Version.zio
   val zioCats    = ("dev.zio" %% "zio-interop-cats" % Version.zioCats).excludeAll(ExclusionRule("org.typelevel"))
   val zioStreams = "dev.zio"  %% "zio-streams"      % Version.zio
+  val zioAkka    = "dev.zio"  %% "zio-akka-cluster" % Version.zioAkka
   val zioTest    = "dev.zio"  %% "zio-test"         % Version.zio % Test
   val zioTestSbt = "dev.zio"  %% "zio-test-sbt"     % Version.zio % Test
 
@@ -27,6 +28,7 @@ object Dependencies {
     val scalamock  = "5.2.0"
     val zio        = "2.0.2"
     val zioCats    = "3.3.0"
+    val zioAkka    = "0.3.0"
     val nscalaTime = "2.32.0"
     val slf4j      = "2.0.3"
   }
